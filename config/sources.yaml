@@ -1,0 +1,76 @@
+# config/sources.yaml
+# Перечень OCDS API-эндпоинтов.
+# api_type:
+#   release_package  — стандартный OCDS /releases.json
+#   record_package   — /records.json
+#   bulk_json        — скачивание пакетного JSON-файла
+#   custom           — нестандартный формат (нужен доп. адаптер)
+
+sources:
+
+  - id: "colombia_secop2"
+    name: "Colombia – SECOP II"
+    country: "CO"
+    base_url: "https://apiocds.colombiacompra.gov.co"
+    releases_path: "/releases"
+    api_type: "release_package"
+    active: true
+
+  - id: "paraguay_dncp"
+    name: "Paraguay – DNCP"
+    country: "PY"
+    base_url: "https://contrataciones.gov.py/datos/api/v3/doc"
+    releases_path: "/licitaciones"
+    api_type: "release_package"
+    active: true
+
+  - id: "moldova_mtender"
+    name: "Moldova – MTender"
+    country: "MD"
+    base_url: "https://public.mtender.gov.md"
+    releases_path: "/tenders/"
+    api_type: "release_package"
+    active: true
+
+  - id: "uk_contracts_finder"
+    name: "United Kingdom – Contracts Finder"
+    country: "GB"
+    base_url: "https://www.contractsfinder.service.gov.uk"
+    releases_path: "/Published/Notices/OCDS/Search"
+    api_type: "custom"
+    active: false           # выключен: редко релевантен для телеком-тендеров
+
+  - id: "chile_mercado_publico"
+    name: "Chile – Mercado Público"
+    country: "CL"
+    base_url: "https://apis.mercadopublico.cl/OCDS/data"
+    releases_path: "/year/{year}/month/{month}"
+    api_type: "release_package"
+    active: true
+
+  - id: "nigeria_budeshi"
+    name: "Nigeria – Budeshi"
+    country: "NG"
+    base_url: "https://budeshi.ng/api/ocds"
+    releases_path: "/releases.json"
+    api_type: "release_package"
+    active: true
+
+  - id: "zambia_zppa"
+    name: "Zambia – ZPPA"
+    country: "ZM"
+    base_url: "https://www.zppa.org.zm/ocds"
+    releases_path: "/releases.json"
+    api_type: "release_package"
+    active: true
+
+  - id: "uganda_gpp"
+    name: "Uganda – GPP"
+    country: "UG"
+    base_url: "https://gpp.ppda.go.ug/adminapi/public/api/ocds"
+    releases_path: "/releases"
+    api_type: "release_package"
+    active: true
+
+  # Добавляйте новые источники по мере обнаружения
+  # Полный список издателей: https://data.open-contracting.org/

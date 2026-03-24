@@ -1,0 +1,25 @@
+# config/settings.yaml
+
+database:
+  path: "data/tenders.db"
+
+collection:
+  max_pages_per_source: 200        # макс. страниц с одного источника за запуск
+  request_timeout_sec: 45
+  max_retries: 3
+  rate_limit_delay_sec: 1.5        # пауза между запросами
+  days_lookback: 90                # собирать тендеры не старше N дней
+  only_active_tenders: true        # только status=active
+
+filtering:
+  min_keyword_length: 3            # игнорировать ключевые слова короче N символов
+  case_sensitive: false
+  match_mode: "substring"          # substring | word_boundary | regex
+  export_format: "csv"             # csv | json | both
+  export_dir: "data/exports"
+
+logging:
+  level: "INFO"
+  file: "logs/app.log"
+  max_bytes: 10485760              # 10 MB
+  backup_count: 5
