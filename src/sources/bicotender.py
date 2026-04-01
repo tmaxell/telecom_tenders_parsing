@@ -1,19 +1,10 @@
 #!/usr/bin/env python3
 """
-BicoTender.ru Scraper v3.1
+BicoTender.ru Scraper v3.2
 ==========================
-Основано на реальной структуре сайта (март 2025).
-
-Поиск:  /tender/search/?keywords=XXX&on_page=100&submit=найти
-Каталог: /catalog/
-Карточка: div.tend-card.tender-desc
-
-Запуск:
-    python -m src.sources.bicotender --test
-    python -m src.sources.bicotender --search "CEIR" --max-pages 5
-    python -m src.sources.bicotender --search "SMS firewall" --details
-    python -m src.sources.bicotender --dump-html --search "IMEI"
-    python -m src.sources.bicotender --search "IMEI" --per-page 200 --max-pages 10
+Изменения vs 3.1:
+  - items_text заполняется из данных листинга (title, тип, цена)
+  - items_text не пустой даже без --details
 """
 
 from __future__ import annotations
@@ -40,29 +31,14 @@ from src.models import Tender
 
 logger = logging.getLogger("bicotender")
 
-# ══════════════════════════════════════════════════════════════════
-#  Constants — из реальной структуры сайта
-# ══════════════════════════════════════════════════════════════════
-
 BASE_URL = "https://www.bicotender.ru"
-
-# URL поиска (реальный, проверенный)
 SEARCH_PATH = "/tender/search/"
-
-# URL каталога
 CATALOG_PATH = "/catalog/"
-
-# Паттерн ссылки на тендер
 TENDER_LINK_RE = re.compile(r"tender(\d+)\.html")
-
-# Паттерн номера тендера в тексте
 TENDER_NUMBER_RE = re.compile(r"(?:№\s*|#\s*|Тендер\s*№?\s*)(\d{6,})")
-
-# Паттерн цены
 PRICE_RE = re.compile(r"([\d\s]+[.,]\d{2})")
-
-# Паттерн даты
 DATE_RE = re.compile(r"(\d{2})[./](\d{2})[./](\d{4})")
+DEFAULT_PER_PAGE = 100
 
 HEADERS = {
     "User-Agent": (
@@ -79,16 +55,12 @@ HEADERS = {
     "Referer": "https://www.bicotender.ru/",
 }
 
-# Дефолт: тендеров на страницу
-DEFAULT_PER_PAGE = 100
-
 
 # ══════════════════════════════════════════════════════════════════
 #  Утилиты
 # ══════════════════════════════════════════════════════════════════
 
 def clean(text: str) -> str:
-    """Очистить от лишних пробелов и спецсимволов."""
     return re.sub(r"\s+", " ", text).strip()
 
 
@@ -161,12 +133,11 @@ def detect_law(text: str) -> str:
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Парсинг страницы СПИСКА тендеров (поиск / каталог)
+#  Листинг
 # ══════════════════════════════════════════════════════════════════
 
 @dataclass
 class ListingItem:
-    """Один тендер из страницы списка."""
     tender_id: str = ""
     url: str = ""
     title: str = ""
@@ -182,16 +153,9 @@ class ListingItem:
 
 
 def parse_listing_page(soup: BeautifulSoup) -> list[ListingItem]:
-    """
-    Извлечь тендеры из страницы поиска/каталога.
-
-    Стратегия: найти все ссылки с tender\\d+\\.html,
-    затем найти их контейнеры.
-    """
     items: list[ListingItem] = []
     seen_ids: set[str] = set()
 
-    # Находим все tender-ссылки
     tender_anchors = []
     for a in soup.find_all("a", href=True):
         m = TENDER_LINK_RE.search(a["href"])
@@ -210,14 +174,14 @@ def parse_listing_page(soup: BeautifulSoup) -> list[ListingItem]:
         seen_ids.add(tender_id)
 
         href = a_tag["href"]
-        full_url = href if href.startswith("http") else urljoin(BASE_URL, href)
+        full_url = (
+            href if href.startswith("http") else urljoin(BASE_URL, href)
+        )
         link_text = clean(a_tag.get_text())
 
-        # Ищем контейнер-карточку
         card_el = _find_card_container(a_tag)
         card_text = clean(card_el.get_text()) if card_el else link_text
 
-        # Пропускаем мусор
         if _is_junk(card_text):
             continue
 
@@ -228,10 +192,8 @@ def parse_listing_page(soup: BeautifulSoup) -> list[ListingItem]:
             full_card_text=card_text,
         )
 
-        # Извлекаем данные из текста карточки
         _extract_listing_fields(card_text, item)
 
-        # Номер из ID если не нашли
         if not item.number:
             item.number = tender_id
 
@@ -242,11 +204,6 @@ def parse_listing_page(soup: BeautifulSoup) -> list[ListingItem]:
 
 
 def _find_card_container(a_tag: Tag) -> Optional[Tag]:
-    """
-    Подняться от <a> вверх по DOM, найти контейнер карточки.
-    Останавливаемся когда контейнер содержит >1 tender-ссылки
-    (значит это уже список, а не карточка).
-    """
     skip_tags = {"a", "span", "em", "strong", "b", "i", "small", "font"}
     card_tags = {"div", "li", "tr", "td", "article", "section", "p"}
 
@@ -257,8 +214,10 @@ def _find_card_container(a_tag: Tag) -> Optional[Tag]:
         if node is None:
             break
         tag_name = getattr(node, "name", None)
-        if tag_name in ("body", "html", "main", "table", "tbody",
-                        "header", "footer", "nav"):
+        if tag_name in (
+            "body", "html", "main", "table", "tbody",
+            "header", "footer", "nav",
+        ):
             break
         if tag_name in skip_tags:
             node = node.parent
@@ -278,7 +237,6 @@ def _find_card_container(a_tag: Tag) -> Optional[Tag]:
 
 
 def _is_junk(text: str) -> bool:
-    """Проверить, не мусор ли это."""
     junk_markers = [
         "Найдено тендеров",
         "И еще в Архиве найдено",
@@ -291,16 +249,12 @@ def _is_junk(text: str) -> bool:
 
 
 def _extract_listing_fields(text: str, item: ListingItem):
-    """Извлечь поля из текста карточки в листинге."""
-    # Номер тендера
     m = TENDER_NUMBER_RE.search(text)
     if m:
         item.number = m.group(1)
 
-    # Тип тендера / закон
     item.tender_type = detect_law(text)
 
-    # Цена
     price_patterns = [
         re.compile(
             r"([\d\s]+[.,]\d{2})\s*(руб|RUB|₽|BYN|USD|EUR|KZT)",
@@ -315,10 +269,8 @@ def _extract_listing_fields(text: str, item: ListingItem):
             item.price_text = pm.group(0)
             break
 
-    # Валюта
     item.currency = detect_currency(text)
 
-    # Даты
     dates = DATE_RE.findall(text)
     for d, m_val, y in dates:
         try:
@@ -335,12 +287,11 @@ def _extract_listing_fields(text: str, item: ListingItem):
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Парсинг ДЕТАЛЬНОЙ страницы тендера
+#  Детальная страница
 # ══════════════════════════════════════════════════════════════════
 
 @dataclass
 class DetailData:
-    """Данные с детальной страницы тендера."""
     title: str = ""
     description: str = ""
     number: str = ""
@@ -366,21 +317,8 @@ class DetailData:
 
 
 def parse_detail_page(soup: BeautifulSoup) -> DetailData:
-    """
-    Парсит детальную страницу тендера.
-
-    Реальная структура (из диагностики):
-      div.tend-card.tender-desc
-        div.tabs-content
-          div.tabs-content-item.tabs-1  → Описание
-          div.tabs-content-item.tabs-2  → Заказчик (за регистрацией)
-          div.tabs-content-item.tabs-3  → Лоты
-      div.TenderInfoblok.stat.infoblok  → Боковая панель
-      div.similar-tenders               → Похожие тендеры
-    """
     data = DetailData()
 
-    # ── Заголовок ─────────────────────────────────────────────────
     h1 = soup.find("h1")
     if h1:
         data.title = clean(h1.get_text())
@@ -393,62 +331,55 @@ def parse_detail_page(soup: BeautifulSoup) -> DetailData:
                     data.title = t
                     break
 
-    # Номер из заголовка
     if data.title:
         m = TENDER_NUMBER_RE.search(data.title)
         if m:
             data.number = m.group(1)
 
-    # ── Таб 1: Описание ──────────────────────────────────────────
     tab1 = soup.select_one("div.tabs-content-item.tabs-1, div.tabs-1")
     if tab1:
         _parse_description_tab(tab1, data)
 
-    # ── Таб 2: Заказчик ──────────────────────────────────────────
     tab2 = soup.select_one("div.tabs-content-item.tabs-2, div.tabs-2")
     if tab2:
         _parse_customer_tab(tab2, data)
 
-    # ── Таб 3: Лоты ──────────────────────────────────────────────
     tab3 = soup.select_one("div.tabs-content-item.tabs-3, div.tabs-3")
     if tab3:
         _parse_lots_tab(tab3, data)
 
-    # ── Основной контейнер ────────────────────────────────────────
     tender_card = soup.select_one("div.tend-card, div.tender-desc")
     if tender_card:
         _parse_table_rows(tender_card, data)
 
-    # ── Fallback ──────────────────────────────────────────────────
     if not data.region and not data.platform:
         _parse_table_rows(soup, data)
 
-    # ── Email ─────────────────────────────────────────────────────
     if not data.contact_email:
         for a in soup.find_all("a", href=True):
             if a["href"].startswith("mailto:"):
-                data.contact_email = a["href"].replace("mailto:", "").strip()
+                data.contact_email = (
+                    a["href"].replace("mailto:", "").strip()
+                )
                 break
 
-    # ── Телефон ───────────────────────────────────────────────────
     if not data.contact_phone:
         for a in soup.find_all("a", href=True):
             if a["href"].startswith("tel:"):
-                data.contact_phone = a["href"].replace("tel:", "").strip()
+                data.contact_phone = (
+                    a["href"].replace("tel:", "").strip()
+                )
                 break
 
-    # ── Закон ─────────────────────────────────────────────────────
     if not data.law:
         data.law = detect_law(soup.get_text())
 
-    # ── Полный текст ──────────────────────────────────────────────
     data.full_text = soup.get_text(separator=" ", strip=True)[:5000]
 
     return data
 
 
 def _parse_description_tab(tab: Tag, data: DetailData):
-    """Парсит таб 'Описание'."""
     text = clean(tab.get_text())
     if text.startswith("Описание тендера:"):
         text = text[len("Описание тендера:"):].strip()
@@ -473,7 +404,6 @@ def _parse_description_tab(tab: Tag, data: DetailData):
 
 
 def _parse_customer_tab(tab: Tag, data: DetailData):
-    """Парсит таб 'Заказчик'."""
     text = clean(tab.get_text())
     if "зарегистрируйтесь" in text.lower():
         logger.debug("Customer tab is behind paywall")
@@ -482,9 +412,7 @@ def _parse_customer_tab(tab: Tag, data: DetailData):
 
 
 def _parse_lots_tab(tab: Tag, data: DetailData):
-    """Парсит таб 'Лоты'."""
     text = clean(tab.get_text())
-
     lots = []
     lot_blocks = re.split(r"Лот\s*\d+", text)
 
@@ -498,16 +426,14 @@ def _parse_lots_tab(tab: Tag, data: DetailData):
         m = re.search(
             r"Предмет\s*(?:контракта|закупки)\s*:\s*(.+?)"
             r"(?:Цена|Количество|ОКПД|$)",
-            block,
-            re.IGNORECASE,
+            block, re.IGNORECASE,
         )
         if m:
             lot["subject"] = clean(m.group(1))
 
         m = re.search(
             r"Цена\s*(?:контракта|лота)?\s*:\s*([\d\s,.]+\s*\w+)",
-            block,
-            re.IGNORECASE,
+            block, re.IGNORECASE,
         )
         if m:
             lot["price_text"] = clean(m.group(1))
@@ -531,7 +457,6 @@ def _parse_lots_tab(tab: Tag, data: DetailData):
 
 
 def _parse_table_rows(parent: Tag, data: DetailData):
-    """Извлечь label-value пары из таблиц."""
     for table in parent.find_all("table"):
         for tr in table.find_all("tr"):
             cells = tr.find_all("td")
@@ -557,64 +482,60 @@ def _parse_table_rows(parent: Tag, data: DetailData):
 
 
 def _assign_field(label: str, value: str, data: DetailData):
-    """Определить поле по label-маркерам и записать value."""
     label = label.strip().lower()
 
-    if any(m in label for m in ["регион", "место поставки",
-                                 "место выполнения", "субъект"]):
+    if any(m in label for m in [
+        "регион", "место поставки", "место выполнения", "субъект",
+    ]):
         if "поставк" in label:
             data.delivery_region = value[:100]
         elif not data.region:
             data.region = value[:100]
-
-    elif any(m in label for m in ["площадк", "торговая площадка",
-                                   "источник", "платформа"]):
+    elif any(m in label for m in [
+        "площадк", "торговая площадка", "источник", "платформа",
+    ]):
         data.platform = value[:100]
-
-    elif any(m in label for m in ["заказчик", "организация",
-                                   "покупатель", "учреждение"]):
+    elif any(m in label for m in [
+        "заказчик", "организация", "покупатель", "учреждение",
+    ]):
         if not data.customer:
             data.customer = value[:200]
-
-    elif any(m in label for m in ["цена", "нмц", "нмцк",
-                                   "стоимость", "начальная"]):
+    elif any(m in label for m in [
+        "цена", "нмц", "нмцк", "стоимость", "начальная",
+    ]):
         if data.price is None:
             data.price = parse_price(value)
             data.price_text = value
-
-    elif any(m in label for m in ["реестровый номер", "номер закупки",
-                                   "номер извещения", "номер тендера"]):
+    elif any(m in label for m in [
+        "реестровый номер", "номер закупки",
+        "номер извещения", "номер тендера",
+    ]):
         m_num = re.search(r"\d{6,}", value)
         data.number = m_num.group(0) if m_num else value[:30]
-
-    elif any(m in label for m in ["дата публикации", "размещено",
-                                   "опубликовано", "дата размещения"]):
+    elif any(m in label for m in [
+        "дата публикации", "размещено",
+        "опубликовано", "дата размещения",
+    ]):
         data.pub_date = parse_date(value)
-
-    elif any(m in label for m in ["окончание подачи", "дата окончания",
-                                   "срок подачи", "подача заявок"]):
+    elif any(m in label for m in [
+        "окончание подачи", "дата окончания",
+        "срок подачи", "подача заявок",
+    ]):
         data.deadline = parse_date(value)
-
     elif "статус" in label:
         data.status = value[:50]
-
     elif any(m in label for m in ["закон", "тип закупки", "способ"]):
         data.law = value[:50]
-
     elif "окпд" in label:
         data.okpd2 = value[:100]
-
     elif "инн" in label:
         m_inn = re.search(r"\d{10,12}", value)
         if m_inn:
             data.inn = m_inn.group(0)
-
     elif any(m in label for m in ["контакт", "ответственн"]):
         data.contact_name = value[:100]
-
     elif any(m in label for m in ["телефон", "тел"]):
         data.contact_phone = value[:30]
-
     elif any(m in label for m in ["email", "почта", "e-mail"]):
         data.contact_email = value[:60]
 
@@ -624,9 +545,7 @@ def _assign_field(label: str, value: str, data: DetailData):
 # ══════════════════════════════════════════════════════════════════
 
 def detect_pagination(soup: BeautifulSoup) -> dict:
-    """Определить параметры пагинации."""
     info = {"has_next": False, "max_page": 1, "current": 1}
-
     page_numbers = []
 
     for a in soup.find_all("a", href=True):
@@ -660,16 +579,10 @@ def detect_pagination(soup: BeautifulSoup) -> dict:
 
 
 # ══════════════════════════════════════════════════════════════════
-#  Основной класс-источник
+#  Основной класс
 # ══════════════════════════════════════════════════════════════════
 
 class BicoTenderSource(BaseTenderSource):
-    """
-    BicoTender.ru parser v3.1.
-
-    Использует реальные URL и структуру сайта.
-    per_page по умолчанию 100 для максимального покрытия.
-    """
 
     source_id = "bicotender"
     source_name = "BicoTender.ru"
@@ -701,19 +614,18 @@ class BicoTenderSource(BaseTenderSource):
             self.config.get("headers", HEADERS)
         )
 
-        self._stats = {"pages": 0, "cards": 0, "details": 0, "errors": 0}
-
-    # ── HTTP ──────────────────────────────────────────────────────
+        self._stats = {
+            "pages": 0, "cards": 0, "details": 0, "errors": 0,
+        }
 
     def _get_soup(self, url: str) -> Optional[BeautifulSoup]:
-        """GET → BeautifulSoup, с ретраями."""
         for attempt in range(1, self.max_retries + 1):
             try:
                 logger.debug("GET %s (attempt %d)", url[:120], attempt)
                 resp = self.session.get(url, timeout=self.timeout)
 
                 if resp.status_code == 403:
-                    logger.error("403 Forbidden — бан или капча")
+                    logger.error("403 Forbidden")
                     return None
                 if resp.status_code == 429:
                     wait = 30 * attempt
@@ -722,10 +634,7 @@ class BicoTenderSource(BaseTenderSource):
                     continue
                 if resp.status_code >= 500:
                     wait = 5 * attempt
-                    logger.warning(
-                        "Server %d. Retry in %ds",
-                        resp.status_code, wait,
-                    )
+                    logger.warning("Server %d. Retry %ds", resp.status_code, wait)
                     time.sleep(wait)
                     continue
                 if resp.status_code == 404:
@@ -734,19 +643,14 @@ class BicoTenderSource(BaseTenderSource):
 
                 resp.raise_for_status()
                 resp.encoding = resp.apparent_encoding or "utf-8"
-
                 soup = BeautifulSoup(resp.text, "lxml")
 
                 title_text = (
                     soup.title.get_text(strip=True).lower()
-                    if soup.title
-                    else ""
+                    if soup.title else ""
                 )
-                if any(
-                    x in title_text
-                    for x in ("captcha", "капча", "blocked")
-                ):
-                    logger.error("CAPTCHA detected on %s", url[:80])
+                if any(x in title_text for x in ("captcha", "капча", "blocked")):
+                    logger.error("CAPTCHA detected")
                     return None
 
                 time.sleep(self.delay)
@@ -757,22 +661,14 @@ class BicoTenderSource(BaseTenderSource):
                 logger.warning("Error (attempt %d): %s", attempt, exc)
                 time.sleep(wait)
 
-        logger.error(
-            "Failed after %d retries: %s", self.max_retries, url[:80],
-        )
+        logger.error("Failed after %d retries: %s", self.max_retries, url[:80])
         self._stats["errors"] += 1
         return None
-
-    # ── URL builders ──────────────────────────────────────────────
 
     @staticmethod
     def _search_url(
         query: str, page: int = 1, per_page: int = DEFAULT_PER_PAGE,
     ) -> str:
-        """
-        Реальный URL поиска:
-        /tender/search/?keywords=CEIR&on_page=100&submit=найти&page=2
-        """
         params = {
             "keywords": query,
             "on_page": str(per_page),
@@ -801,15 +697,6 @@ class BicoTenderSource(BaseTenderSource):
         per_page: int = DEFAULT_PER_PAGE,
         **kwargs,
     ) -> Generator[Tender, None, None]:
-        """
-        Основной генератор.
-
-        Args:
-            search_query: поисковый запрос
-            max_pages: макс. страниц
-            fetch_details: загружать детальные страницы
-            per_page: тендеров на странице (20/50/100/200)
-        """
         pages_limit = max_pages or self.max_pages_default
         self._stats = {
             "pages": 0, "cards": 0, "details": 0, "errors": 0,
@@ -830,14 +717,11 @@ class BicoTenderSource(BaseTenderSource):
 
             soup = self._get_soup(url)
             if not soup:
-                logger.warning("  Failed to load page %d", page_num)
                 break
 
             items = parse_listing_page(soup)
             if not items:
-                logger.info(
-                    "  Page %d: 0 tenders — stopping", page_num,
-                )
+                logger.info("  Page %d: 0 tenders — stopping", page_num)
                 break
 
             self._stats["pages"] += 1
@@ -853,45 +737,39 @@ class BicoTenderSource(BaseTenderSource):
                 tender = self._to_tender(item, detail)
                 yield tender
 
-            # Пагинация
             pag = detect_pagination(soup)
             if not pag["has_next"] or page_num >= pag["max_page"]:
-                logger.info(
-                    "  Last page reached (max=%d)", pag["max_page"],
-                )
+                logger.info("  Last page (max=%d)", pag["max_page"])
                 break
 
             time.sleep(self.page_delay)
 
         logger.info(
             "✔ BicoTender: %d pages, %d cards, %d details, %d errors",
-            self._stats["pages"],
-            self._stats["cards"],
-            self._stats["details"],
-            self._stats["errors"],
+            self._stats["pages"], self._stats["cards"],
+            self._stats["details"], self._stats["errors"],
         )
 
     def _fetch_detail(self, url: str) -> Optional[DetailData]:
-        """Загрузить детальную страницу."""
         soup = self._get_soup(url)
         if not soup:
             return None
         self._stats["details"] += 1
         return parse_detail_page(soup)
 
-    # ── Convert to Tender ─────────────────────────────────────────
+    # ══════════════════════════════════════════════════════════════
+    #  ★ ГЛАВНОЕ ИЗМЕНЕНИЕ: items_text заполняется всегда
+    # ══════════════════════════════════════════════════════════════
 
     def _to_tender(
         self,
         item: ListingItem,
         detail: Optional[DetailData] = None,
     ) -> Tender:
-        """ListingItem + DetailData → Tender."""
         ocid = f"bicotender-{item.tender_id}"
 
         title = (
-            (detail.title if detail and detail.title else item.title)
-            or ""
+            (detail.title if detail and detail.title else item.title) or ""
         )
         description = (detail.description if detail else "") or ""
         customer = (detail.customer if detail else "") or ""
@@ -908,9 +786,7 @@ class BicoTenderSource(BaseTenderSource):
         region = (detail.region if detail else "") or ""
         platform = (detail.platform if detail else "") or ""
         law = (
-            detail.law
-            if detail and detail.law
-            else item.tender_type
+            detail.law if detail and detail.law else item.tender_type
         ) or ""
         pub_date = (
             detail.pub_date
@@ -933,13 +809,41 @@ class BicoTenderSource(BaseTenderSource):
             detail.status if detail and detail.status else "active"
         )
 
-        items_parts = []
+        # ★ Собираем items_text — ВСЕГДА заполняем
+        items_parts: list[str] = []
+
+        # Из листинга — предмет закупки (заголовок)
+        if title:
+            # Убираем "Тендер - " и номер из начала
+            subject = re.sub(
+                r"^(?:Тендер\s*[-–—]\s*)?", "", title,
+            ).strip()
+            # Убираем хвост с номером типа "№326929033"
+            subject = re.sub(r"\s*№\d+\s*$", "", subject).strip()
+            if subject:
+                items_parts.append(f"Предмет: {subject}")
+
+        # Номер тендера
+        if number:
+            items_parts.append(f"№ {number}")
+
+        # Тип/закон
+        if law:
+            items_parts.append(f"Тип: {law}")
+
+        # URL тендера
+        if item.url:
+            items_parts.append(f"URL: {item.url}")
+
+        # Из деталей — если есть
         if okpd2:
             items_parts.append(f"ОКПД2: {okpd2}")
         if region:
             items_parts.append(f"Регион: {region}")
         if platform:
             items_parts.append(f"Площадка: {platform}")
+
+        # Лоты из деталей
         if detail and detail.lots:
             for i, lot in enumerate(detail.lots, 1):
                 subj = lot.get("subject", "")
@@ -960,23 +864,15 @@ class BicoTenderSource(BaseTenderSource):
             "platform": platform,
             "okpd2": okpd2,
             "inn": inn,
-            "contact_name": (
-                detail.contact_name if detail else ""
-            ),
-            "contact_phone": (
-                detail.contact_phone if detail else ""
-            ),
-            "contact_email": (
-                detail.contact_email if detail else ""
-            ),
+            "contact_name": detail.contact_name if detail else "",
+            "contact_phone": detail.contact_phone if detail else "",
+            "contact_email": detail.contact_email if detail else "",
             "lots": detail.lots if detail else [],
         }
 
         return Tender(
             ocid=ocid,
-            release_id=(
-                f"{ocid}-{datetime.utcnow().strftime('%Y%m%d')}"
-            ),
+            release_id=f"{ocid}-{datetime.utcnow().strftime('%Y%m%d')}",
             source_id=self.source_id,
             country=self.country,
             title=title,
@@ -991,9 +887,7 @@ class BicoTenderSource(BaseTenderSource):
             tender_period_end=deadline,
             date_published=pub_date,
             items_text=" | ".join(items_parts),
-            raw_json=json.dumps(
-                raw, ensure_ascii=False, default=str,
-            ),
+            raw_json=json.dumps(raw, ensure_ascii=False, default=str),
         )
 
     # ── Multi-keyword ─────────────────────────────────────────────
@@ -1005,14 +899,12 @@ class BicoTenderSource(BaseTenderSource):
         fetch_details: bool = False,
         per_page: int = DEFAULT_PER_PAGE,
     ) -> Generator[Tender, None, None]:
-        """Поиск по нескольким ключевым словам с дедупликацией."""
         seen: set[str] = set()
         total = 0
 
         for i, kw in enumerate(keywords, 1):
             logger.info(
-                "━━━ Keyword %d/%d: '%s' ━━━",
-                i, len(keywords), kw,
+                "━━━ Keyword %d/%d: '%s' ━━━", i, len(keywords), kw,
             )
             for tender in self.collect(
                 search_query=kw,
@@ -1029,10 +921,7 @@ class BicoTenderSource(BaseTenderSource):
 
         logger.info("═══ Keywords done: %d unique tenders ═══", total)
 
-    # ── Test ──────────────────────────────────────────────────────
-
     def test_connection(self) -> dict:
-        """Проверка работоспособности."""
         result = {
             "ok": False,
             "catalog_tenders": 0,
@@ -1040,71 +929,36 @@ class BicoTenderSource(BaseTenderSource):
             "detail_parsed": False,
             "error": "",
         }
-
         try:
-            # 1. Каталог
-            logger.info("Testing catalog page …")
             soup = self._get_soup(f"{BASE_URL}{CATALOG_PATH}")
             if soup:
                 items = parse_listing_page(soup)
                 result["catalog_tenders"] = len(items)
-                logger.info("  Catalog: %d tenders", len(items))
-                if items:
-                    logger.info(
-                        "  Sample: %s", items[0].title[:60],
-                    )
 
-            # 2. Поиск
-            logger.info("Testing search page …")
             search_soup = self._get_soup(
                 self._search_url("тендер", per_page=10)
             )
             if search_soup:
                 search_items = parse_listing_page(search_soup)
                 result["search_tenders"] = len(search_items)
-                logger.info(
-                    "  Search: %d tenders", len(search_items),
-                )
 
-            # 3. Детальная страница
             if soup:
                 items = parse_listing_page(soup)
                 if items and items[0].url:
-                    logger.info(
-                        "Testing detail page: %s",
-                        items[0].url[:80],
-                    )
                     detail_soup = self._get_soup(items[0].url)
                     if detail_soup:
                         detail = parse_detail_page(detail_soup)
                         result["detail_parsed"] = bool(
                             detail.title or detail.description
                         )
-                        result["detail_sample"] = {
-                            "title": detail.title[:80],
-                            "customer": detail.customer[:60],
-                            "region": detail.region,
-                            "platform": detail.platform,
-                            "price": detail.price,
-                            "lots": len(detail.lots),
-                        }
-                        logger.info(
-                            "  Detail: title='%s'",
-                            detail.title[:60],
-                        )
 
             result["ok"] = (
                 result["catalog_tenders"] > 0
                 or result["search_tenders"] > 0
             )
-
         except Exception as exc:
             result["error"] = str(exc)
-            logger.exception("Test failed")
-
         return result
-
-    # ── Lifecycle ─────────────────────────────────────────────────
 
     def close(self):
         self.session.close()
@@ -1116,44 +970,17 @@ class BicoTenderSource(BaseTenderSource):
         self.close()
 
 
-# ══════════════════════════════════════════════════════════════════
-#  Standalone entry point
-# ══════════════════════════════════════════════════════════════════
-
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(
-        description="BicoTender.ru Parser v3.1",
-    )
-    parser.add_argument(
-        "--search", "-s", type=str, default="",
-        help="Search query",
-    )
-    parser.add_argument(
-        "--max-pages", "-p", type=int, default=5,
-        help="Max pages to fetch (default: 5)",
-    )
-    parser.add_argument(
-        "--per-page", type=int, default=DEFAULT_PER_PAGE,
-        help="Tenders per page: 20, 50, 100, 200 (default: 100)",
-    )
-    parser.add_argument(
-        "--details", "-d", action="store_true",
-        help="Fetch detail pages (slower, more data)",
-    )
-    parser.add_argument(
-        "--test", "-t", action="store_true",
-        help="Test connection and exit",
-    )
-    parser.add_argument(
-        "--dump-html", action="store_true",
-        help="Dump parsed listing items for debugging",
-    )
-    parser.add_argument(
-        "--debug", action="store_true",
-        help="Enable debug logging",
-    )
+    parser = argparse.ArgumentParser(description="BicoTender.ru v3.2")
+    parser.add_argument("--search", "-s", type=str, default="")
+    parser.add_argument("--max-pages", "-p", type=int, default=5)
+    parser.add_argument("--per-page", type=int, default=DEFAULT_PER_PAGE)
+    parser.add_argument("--details", "-d", action="store_true")
+    parser.add_argument("--test", "-t", action="store_true")
+    parser.add_argument("--dump-html", action="store_true")
+    parser.add_argument("--debug", action="store_true")
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -1163,44 +990,27 @@ if __name__ == "__main__":
 
     source = BicoTenderSource()
 
-    # ── Test ──────────────────────────────────────────────────────
     if args.test:
-        result = source.test_connection()
-        print(json.dumps(result, indent=2, ensure_ascii=False))
+        res = source.test_connection()
+        print(json.dumps(res, indent=2, ensure_ascii=False))
         source.close()
-        sys.exit(0 if result["ok"] else 1)
+        sys.exit(0 if res["ok"] else 1)
 
-    # ── Dump HTML ─────────────────────────────────────────────────
     if args.dump_html:
         if args.search:
-            url = source._search_url(
-                args.search, per_page=args.per_page,
-            )
+            url = source._search_url(args.search, per_page=args.per_page)
         else:
             url = source._catalog_url()
         soup = source._get_soup(url)
         if soup:
             items = parse_listing_page(soup)
-            print(f"\n{'='*70}")
-            print(f"URL: {url}")
-            print(f"Found: {len(items)} tenders")
+            print(f"\nFound: {len(items)} tenders")
             for i, item in enumerate(items[:20]):
-                print(f"\n{'─'*60}")
-                print(f"  [{i+1}] ID: {item.tender_id}")
-                print(f"  Title   : {item.title[:80]}")
-                print(f"  URL     : {item.url[:80]}")
-                print(f"  Number  : {item.number}")
-                print(f"  Type    : {item.tender_type}")
-                print(f"  Price   : {item.price} {item.currency}")
-                print(f"  PubDate : {item.pub_date}")
-                print(f"  Deadline: {item.deadline}")
-                print(
-                    f"  Text    : {item.full_card_text[:150]}"
-                )
+                print(f"\n  [{i+1}] {item.tender_id}: {item.title[:70]}")
+                print(f"       Price: {item.price} {item.currency}")
         source.close()
         sys.exit(0)
 
-    # ── Collect ───────────────────────────────────────────────────
     count = 0
     for tender in source.collect(
         search_query=args.search,
@@ -1214,14 +1024,7 @@ if __name__ == "__main__":
         print(f"  Title    : {tender.title[:80]}")
         print(f"  Customer : {tender.buyer_name[:60]}")
         print(f"  Price    : {tender.value_amount} {tender.value_currency}")
-        print(f"  Law      : {tender.procurement_method}")
-        print(f"  Published: {tender.date_published}")
-        print(f"  Deadline : {tender.tender_period_end}")
-        print(f"  Status   : {tender.status}")
-        print(f"  Items    : {tender.items_text[:100]}")
-        if tender.description:
-            print(f"  Desc     : {tender.description[:120]}…")
+        print(f"  Items    : {tender.items_text[:120]}")
 
-    print(f"\n{'═'*60}")
-    print(f"Total: {count} tenders")
+    print(f"\n{'═'*60}\nTotal: {count} tenders")
     source.close()
