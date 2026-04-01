@@ -1,0 +1,31 @@
+version: "3.9"
+
+services:
+
+  collector:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: ocds-collector
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../config:/app/config
+    command: ["src.collector", "--max-pages", "50"]
+    # cron-расписание — через внешний cron или Ofelia / supercronic
+    restart: "no"
+
+  filter:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    container_name: ocds-filter
+    volumes:
+      - ../data:/app/data
+      - ../logs:/app/logs
+      - ../config:/app/config
+    command: ["src.filter", "--export", "both", "--stats"]
+    depends_on:
+      collector:
+        condition: service_completed_successfully
+    restart: "no"

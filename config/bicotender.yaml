@@ -1,0 +1,64 @@
+# config/bicotender.yaml
+# Настройки парсера bicotender.ru
+# CSS-селекторы вынесены сюда, чтобы при смене вёрстки
+# не трогать код — достаточно поправить этот файл.
+
+base_url: "https://www.bicotender.ru"
+
+catalog_path: "/catalog/"
+
+# ── HTTP ──────────────────────────────────────────────────────────
+request:
+  timeout: 30
+  max_retries: 3
+  delay_between_requests: 2.0      # секунды (уважаем сервер)
+  delay_between_pages: 3.0
+  max_pages: 50                    # макс. страниц за один запуск
+
+headers:
+  User-Agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
+  Accept: "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8"
+  Accept-Language: "ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7"
+
+# ── Параметры поиска ──────────────────────────────────────────────
+# Передаются как GET ?key=value
+search_params:
+  # search: ""           # текстовый запрос (заполняется программно)
+  sort: "date_published"
+  order: "desc"
+
+# ── CSS-селекторы ─────────────────────────────────────────────────
+# Если вёрстка изменится — правьте здесь, не в коде.
+selectors:
+
+  # Контейнер одного тендера в списке
+  tender_card: "div.search-results__item, div.tender-item, div.card-tender, tr.tender-row, div.tendercard, div[class*='tender'], div[class*='result-item']"
+
+  # Поля внутри карточки (relative to tender_card)
+  title:        "a.search-results__name, a.tender-title, h3 a, h2 a, a[class*='title'], a[class*='name'], .tender-name a"
+  number:       "span.search-results__number, span.tender-number, .number, span[class*='number'], .registry-number, .tender-num"
+  customer:     "div.search-results__customer, .tender-customer, .customer, .zakazchik, span[class*='customer'], div[class*='customer']"
+  price:        "span.search-results__price, .tender-price, .price, .sum, span[class*='price'], div[class*='price'], .nmc"
+  region:       "span.search-results__region, .tender-region, .region, span[class*='region'], div[class*='region']"
+  deadline:     "span.search-results__deadline, .tender-deadline, .deadline, .end-date, span[class*='deadline'], div[class*='date-end']"
+  pub_date:     "span.search-results__date, .tender-date, .pub-date, .date-pub, span[class*='date-pub'], div[class*='date']"
+  law:          "span.search-results__law, .tender-law, .law, .fz, span[class*='law'], span[class*='fz']"
+  status:       "span.search-results__status, .tender-status, .status, span[class*='status']"
+  link_attr:    "href"
+
+  # Пагинация
+  pagination:   "ul.pagination, nav.pagination, div.pagination, div[class*='paging']"
+  next_page:    "a.pagination__next, a.next, li.next a, a[rel='next'], a[class*='next']"
+  last_page:    "a.pagination__last, a.last, li.last a, a[class*='last']"
+
+  # ── Страница деталей тендера ──────────────────────────────────
+  detail:
+    description:  "div.tender-description, div.description, .tender-info__description, div[class*='description'], .full-description"
+    lots_table:   "table.lots-table, table.lots, div.lots, table[class*='lot']"
+    documents:    "div.tender-documents a, .documents a, a.doc-link, a[class*='document']"
+    contact_name: ".contact-name, .contact-person, div[class*='contact'] span"
+    contact_phone: ".contact-phone, div[class*='phone']"
+    contact_email: ".contact-email, div[class*='email'] a"
+    okpd2:        ".okpd2, span[class*='okpd'], div[class*='okpd']"
+    inn:          ".inn, span[class*='inn']"
+    platform:     ".platform, .source, span[class*='platform'], div[class*='source']"
