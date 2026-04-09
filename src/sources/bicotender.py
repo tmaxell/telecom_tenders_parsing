@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
 """
-BicoTender.ru Scraper v3.2
+BicoTender.ru Scraper v3.3
 ==========================
-Изменения vs 3.1:
-  - items_text заполняется из данных листинга (title, тип, цена)
-  - items_text не пустой даже без --details
+★ Строгий поиск: keywordsStrict=1 (вся фраза целиком)
+★ items_text заполняется всегда
+★ per_page по умолчанию 100
+
+Запуск:
+    python -m src.sources.bicotender --search "маркетинговая платформа" --max-pages 5
+    python -m src.sources.bicotender --test
 """
 
 from __future__ import annotations
@@ -30,6 +34,10 @@ from src.sources.base import BaseTenderSource
 from src.models import Tender
 
 logger = logging.getLogger("bicotender")
+
+# ══════════════════════════════════════════════════════════════════
+#  Constants
+# ══════════════════════════════════════════════════════════════════
 
 BASE_URL = "https://www.bicotender.ru"
 SEARCH_PATH = "/tender/search/"
@@ -634,7 +642,9 @@ class BicoTenderSource(BaseTenderSource):
                     continue
                 if resp.status_code >= 500:
                     wait = 5 * attempt
-                    logger.warning("Server %d. Retry %ds", resp.status_code, wait)
+                    logger.warning(
+                        "Server %d. Retry %ds", resp.status_code, wait,
+                    )
                     time.sleep(wait)
                     continue
                 if resp.status_code == 404:
@@ -649,7 +659,10 @@ class BicoTenderSource(BaseTenderSource):
                     soup.title.get_text(strip=True).lower()
                     if soup.title else ""
                 )
-                if any(x in title_text for x in ("captcha", "капча", "blocked")):
+                if any(
+                    x in title_text
+                    for x in ("captcha", "капча", "blocked")
+                ):
                     logger.error("CAPTCHA detected")
                     return None
 
@@ -661,25 +674,94 @@ class BicoTenderSource(BaseTenderSource):
                 logger.warning("Error (attempt %d): %s", attempt, exc)
                 time.sleep(wait)
 
-        logger.error("Failed after %d retries: %s", self.max_retries, url[:80])
+        logger.error(
+            "Failed after %d retries: %s",
+            self.max_retries, url[:80],
+        )
         self._stats["errors"] += 1
         return None
 
+    # ══════════════════════════════════════════════════════════════
+    #  ★ ГЛАВНОЕ ИЗМЕНЕНИЕ: URL поиска с keywordsStrict=1
+    # ══════════════════════════════════════════════════════════════
+
     @staticmethod
     def _search_url(
-        query: str, page: int = 1, per_page: int = DEFAULT_PER_PAGE,
+        query: str,
+        page: int = 1,
+        per_page: int = DEFAULT_PER_PAGE,
+        strict: bool = True,
     ) -> str:
+        """
+        Построить URL поиска с СТРОГИМ соответствием фразы.
+
+        Реальный URL:
+        /tender/search/?keywords=маркетинговая+платформа
+            &no_search_by_positions=0
+            &keywordsStrict=1              ← строгий поиск
+            &nokeywords=
+            &no_exclude_by_positions=0
+            &multifields=0
+            &company[name]=
+            &company[excludeName]=0
+            &company[keywordsStrict]=0
+            &company[inn]=
+            &costRub[from]=
+            &costRub[to]=
+            &costRub[withZero]=0
+            &prepaymentPercent[from]=
+            &prepaymentPercent[to]=
+            &loadTime[from]=
+            &loadTime[to]=
+            &finishDate[from]=
+            &finishDate[to]=
+            &sourceUrl=
+            &excludeSourceUrl=0
+            &tender_id=
+            &srcNoticeNumber=
+            &show_expiration=0
+            &on_page=100
+            &order=bcHitCountUniq+DESC
+            &searchInFound=0
+            &searchInFoundKey=
+            &submit=Искать
+            &page=2
+        """
         params = {
             "keywords": query,
+            "no_search_by_positions": "0",
+            "keywordsStrict": "1" if strict else "0",
+            "nokeywords": "",
+            "no_exclude_by_positions": "0",
+            "multifields": "0",
+            "company[name]": "",
+            "company[excludeName]": "0",
+            "company[keywordsStrict]": "0",
+            "company[inn]": "",
+            "costRub[from]": "",
+            "costRub[to]": "",
+            "costRub[withZero]": "0",
+            "prepaymentPercent[from]": "",
+            "prepaymentPercent[to]": "",
+            "loadTime[from]": "",
+            "loadTime[to]": "",
+            "finishDate[from]": "",
+            "finishDate[to]": "",
+            "sourceUrl": "",
+            "excludeSourceUrl": "0",
+            "tender_id": "",
+            "srcNoticeNumber": "",
+            "show_expiration": "0",
             "on_page": str(per_page),
-            "submit": "найти",
+            "order": "bcHitCountUniq DESC",
+            "searchInFound": "0",
+            "searchInFoundKey": "",
+            "submit": "Искать",
         }
         if page > 1:
             params["page"] = str(page)
-        return (
-            f"{BASE_URL}{SEARCH_PATH}"
-            f"?{urlencode(params, quote_via=quote_plus)}"
-        )
+
+        return f"{BASE_URL}{SEARCH_PATH}?{urlencode(params)}"
 
     @staticmethod
     def _catalog_url(page: int = 1) -> str:
@@ -695,25 +777,40 @@ class BicoTenderSource(BaseTenderSource):
         max_pages: Optional[int] = None,
         fetch_details: bool = False,
         per_page: int = DEFAULT_PER_PAGE,
+        strict_search: bool = True,
         **kwargs,
     ) -> Generator[Tender, None, None]:
+        """
+        Основной генератор.
+
+        Args:
+            search_query: поисковый запрос
+            max_pages: макс. страниц
+            fetch_details: загружать детальные страницы
+            per_page: тендеров на странице
+            strict_search: строгий поиск (keywordsStrict=1)
+        """
         pages_limit = max_pages or self.max_pages_default
         self._stats = {
             "pages": 0, "cards": 0, "details": 0, "errors": 0,
         }
 
         logger.info(
-            "▶ BicoTender: query='%s' max_pages=%d details=%s per_page=%d",
-            search_query, pages_limit, fetch_details, per_page,
+            "▶ BicoTender: query='%s' max_pages=%d details=%s "
+            "per_page=%d strict=%s",
+            search_query, pages_limit, fetch_details,
+            per_page, strict_search,
         )
 
         for page_num in range(1, pages_limit + 1):
             if search_query:
-                url = self._search_url(search_query, page_num, per_page)
+                url = self._search_url(
+                    search_query, page_num, per_page, strict_search,
+                )
             else:
                 url = self._catalog_url(page_num)
 
-            logger.info("  📄 Page %d: %s", page_num, url)
+            logger.info("  📄 Page %d: %s", page_num, url[:150])
 
             soup = self._get_soup(url)
             if not soup:
@@ -721,7 +818,9 @@ class BicoTenderSource(BaseTenderSource):
 
             items = parse_listing_page(soup)
             if not items:
-                logger.info("  Page %d: 0 tenders — stopping", page_num)
+                logger.info(
+                    "  Page %d: 0 tenders — stopping", page_num,
+                )
                 break
 
             self._stats["pages"] += 1
@@ -757,9 +856,7 @@ class BicoTenderSource(BaseTenderSource):
         self._stats["details"] += 1
         return parse_detail_page(soup)
 
-    # ══════════════════════════════════════════════════════════════
-    #  ★ ГЛАВНОЕ ИЗМЕНЕНИЕ: items_text заполняется всегда
-    # ══════════════════════════════════════════════════════════════
+    # ── Convert to Tender ─────────────────────────────────────────
 
     def _to_tender(
         self,
@@ -769,7 +866,8 @@ class BicoTenderSource(BaseTenderSource):
         ocid = f"bicotender-{item.tender_id}"
 
         title = (
-            (detail.title if detail and detail.title else item.title) or ""
+            (detail.title if detail and detail.title else item.title)
+            or ""
         )
         description = (detail.description if detail else "") or ""
         customer = (detail.customer if detail else "") or ""
@@ -809,33 +907,26 @@ class BicoTenderSource(BaseTenderSource):
             detail.status if detail and detail.status else "active"
         )
 
-        # ★ Собираем items_text — ВСЕГДА заполняем
+        # ── items_text — всегда заполняем ────────────────────────
         items_parts: list[str] = []
 
-        # Из листинга — предмет закупки (заголовок)
         if title:
-            # Убираем "Тендер - " и номер из начала
             subject = re.sub(
                 r"^(?:Тендер\s*[-–—]\s*)?", "", title,
             ).strip()
-            # Убираем хвост с номером типа "№326929033"
             subject = re.sub(r"\s*№\d+\s*$", "", subject).strip()
             if subject:
                 items_parts.append(f"Предмет: {subject}")
 
-        # Номер тендера
         if number:
             items_parts.append(f"№ {number}")
 
-        # Тип/закон
         if law:
             items_parts.append(f"Тип: {law}")
 
-        # URL тендера
         if item.url:
             items_parts.append(f"URL: {item.url}")
 
-        # Из деталей — если есть
         if okpd2:
             items_parts.append(f"ОКПД2: {okpd2}")
         if region:
@@ -843,7 +934,6 @@ class BicoTenderSource(BaseTenderSource):
         if platform:
             items_parts.append(f"Площадка: {platform}")
 
-        # Лоты из деталей
         if detail and detail.lots:
             for i, lot in enumerate(detail.lots, 1):
                 subj = lot.get("subject", "")
@@ -872,7 +962,9 @@ class BicoTenderSource(BaseTenderSource):
 
         return Tender(
             ocid=ocid,
-            release_id=f"{ocid}-{datetime.utcnow().strftime('%Y%m%d')}",
+            release_id=(
+                f"{ocid}-{datetime.utcnow().strftime('%Y%m%d')}"
+            ),
             source_id=self.source_id,
             country=self.country,
             title=title,
@@ -898,19 +990,23 @@ class BicoTenderSource(BaseTenderSource):
         max_pages_per_keyword: int = 5,
         fetch_details: bool = False,
         per_page: int = DEFAULT_PER_PAGE,
+        strict_search: bool = True,
     ) -> Generator[Tender, None, None]:
+        """Поиск по нескольким ключевым словам с дедупликацией."""
         seen: set[str] = set()
         total = 0
 
         for i, kw in enumerate(keywords, 1):
             logger.info(
-                "━━━ Keyword %d/%d: '%s' ━━━", i, len(keywords), kw,
+                "━━━ Keyword %d/%d: '%s' ━━━",
+                i, len(keywords), kw,
             )
             for tender in self.collect(
                 search_query=kw,
                 max_pages=max_pages_per_keyword,
                 fetch_details=fetch_details,
                 per_page=per_page,
+                strict_search=strict_search,
             ):
                 if tender.ocid not in seen:
                     seen.add(tender.ocid)
@@ -973,14 +1069,22 @@ class BicoTenderSource(BaseTenderSource):
 if __name__ == "__main__":
     import argparse
 
-    parser = argparse.ArgumentParser(description="BicoTender.ru v3.2")
+    parser = argparse.ArgumentParser(
+        description="BicoTender.ru v3.3 — строгий поиск",
+    )
     parser.add_argument("--search", "-s", type=str, default="")
     parser.add_argument("--max-pages", "-p", type=int, default=5)
-    parser.add_argument("--per-page", type=int, default=DEFAULT_PER_PAGE)
+    parser.add_argument(
+        "--per-page", type=int, default=DEFAULT_PER_PAGE,
+    )
     parser.add_argument("--details", "-d", action="store_true")
     parser.add_argument("--test", "-t", action="store_true")
     parser.add_argument("--dump-html", action="store_true")
     parser.add_argument("--debug", action="store_true")
+    parser.add_argument(
+        "--no-strict", action="store_true",
+        help="Отключить строгий поиск (keywordsStrict=0)",
+    )
     args = parser.parse_args()
 
     logging.basicConfig(
@@ -998,16 +1102,25 @@ if __name__ == "__main__":
 
     if args.dump_html:
         if args.search:
-            url = source._search_url(args.search, per_page=args.per_page)
+            url = source._search_url(
+                args.search,
+                per_page=args.per_page,
+                strict=not args.no_strict,
+            )
         else:
             url = source._catalog_url()
         soup = source._get_soup(url)
         if soup:
             items = parse_listing_page(soup)
-            print(f"\nFound: {len(items)} tenders")
+            print(f"\nURL: {url}\nFound: {len(items)} tenders")
             for i, item in enumerate(items[:20]):
-                print(f"\n  [{i+1}] {item.tender_id}: {item.title[:70]}")
-                print(f"       Price: {item.price} {item.currency}")
+                print(
+                    f"\n  [{i+1}] {item.tender_id}: "
+                    f"{item.title[:70]}"
+                )
+                print(
+                    f"       Price: {item.price} {item.currency}"
+                )
         source.close()
         sys.exit(0)
 
@@ -1017,13 +1130,17 @@ if __name__ == "__main__":
         max_pages=args.max_pages,
         fetch_details=args.details,
         per_page=args.per_page,
+        strict_search=not args.no_strict,
     ):
         count += 1
         print(f"\n{'─'*60}")
         print(f"  #{count} [{tender.ocid}]")
         print(f"  Title    : {tender.title[:80]}")
         print(f"  Customer : {tender.buyer_name[:60]}")
-        print(f"  Price    : {tender.value_amount} {tender.value_currency}")
+        print(
+            f"  Price    : {tender.value_amount} "
+            f"{tender.value_currency}"
+        )
         print(f"  Items    : {tender.items_text[:120]}")
 
     print(f"\n{'═'*60}\nTotal: {count} tenders")
