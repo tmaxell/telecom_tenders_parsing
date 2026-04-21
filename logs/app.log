@@ -567,3 +567,424 @@
 2026-04-09 14:36:16,731 [INFO] bicotender: ✔ BicoTender: 1 pages, 13 cards, 0 details, 0 errors
 2026-04-09 14:36:22,736 [INFO] bicotender: ═══ Keywords done: 13 unique tenders ═══
 2026-04-09 14:36:22,741 [INFO] collector_bico: ═══ BicoTender done: 13 new tenders (DB total: 157) ═══
+2026-04-09 14:44:33,002 [WARNING] keyword_verifier: pymorphy2 not installed. Install: pip install pymorphy2 pymorphy2-dicts-ru
+2026-04-09 14:44:33,002 [WARNING] keyword_verifier: Fuzzy mode unavailable, falling back to 'exact'
+2026-04-09 14:44:33,002 [INFO] collector_bico: Keyword verification enabled (mode: fuzzy)
+2026-04-09 14:44:33,003 [INFO] bicotender: ━━━ Keyword 1/1: 'маркетинговая платформа' ━━━
+2026-04-09 14:44:33,003 [INFO] bicotender: ▶ BicoTender: query='маркетинговая платформа' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 14:44:33,003 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F+%D0%BF%D0%BB%D0%B0%D1
+2026-04-09 14:44:36,276 [INFO] bicotender: Parsed 13 tenders from listing page
+2026-04-09 14:44:36,277 [INFO] bicotender:   Page 1: 13 tenders
+2026-04-09 14:44:36,304 [INFO] bicotender:   Last page (max=1)
+2026-04-09 14:44:36,304 [INFO] bicotender: ✔ BicoTender: 1 pages, 13 cards, 0 details, 0 errors
+2026-04-09 14:44:42,309 [INFO] bicotender: ═══ Keywords done: 13 unique tenders ═══
+2026-04-09 14:44:42,310 [INFO] collector_bico: ═══ BicoTender done ═══
+  New tenders saved  : 0
+  Verified (passed)  : 1
+  Rejected (no match): 12
+  DB total           : 157
+2026-04-09 15:20:59,540 [WARNING] keyword_verifier: pymorphy2 not installed. Install: pip install pymorphy2 pymorphy2-dicts-ru
+2026-04-09 15:20:59,540 [WARNING] keyword_verifier: Fuzzy mode unavailable, falling back to 'exact'
+2026-04-09 15:20:59,540 [INFO] collector_bico: Keyword verification enabled (mode: fuzzy)
+2026-04-09 15:20:59,543 [INFO] bicotender: ━━━ Keyword 1/1: 'маркетинговая платформа' ━━━
+2026-04-09 15:20:59,543 [INFO] bicotender: ▶ BicoTender: query='маркетинговая платформа' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:20:59,543 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F+%D0%BF%D0%BB%D0%B0%D1
+2026-04-09 15:21:02,564 [INFO] bicotender: Parsed 13 tenders from listing page
+2026-04-09 15:21:02,565 [INFO] bicotender:   Page 1: 13 tenders
+2026-04-09 15:21:02,588 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:21:02,588 [INFO] bicotender: ✔ BicoTender: 1 pages, 13 cards, 0 details, 0 errors
+2026-04-09 15:21:08,593 [INFO] bicotender: ═══ Keywords done: 13 unique tenders ═══
+2026-04-09 15:21:08,595 [INFO] collector_bico: ═══ BicoTender done ═══
+  New tenders saved  : 0
+  Verified (passed)  : 1
+  Rejected (no match): 12
+  DB total           : 157
+2026-04-09 15:24:40,567 [INFO] collector_bico: Using ALL 59 RU keywords
+2026-04-09 15:24:40,575 [WARNING] keyword_verifier: pymorphy2 not installed. Install: pip install pymorphy2 pymorphy2-dicts-ru
+2026-04-09 15:24:40,575 [WARNING] keyword_verifier: Fuzzy mode unavailable, falling back to 'exact'
+2026-04-09 15:24:40,575 [INFO] collector_bico: Keyword verification enabled (mode: fuzzy)
+2026-04-09 15:24:40,576 [INFO] bicotender: ━━━ Keyword 1/59: 'регистрация IMEI' ━━━
+2026-04-09 15:24:40,576 [INFO] bicotender: ▶ BicoTender: query='регистрация IMEI' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:24:40,576 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F+IMEI&no_search_by_positions=0&key
+2026-04-09 15:24:43,018 [INFO] bicotender: Parsed 2 tenders from listing page
+2026-04-09 15:24:43,018 [INFO] bicotender:   Page 1: 2 tenders
+2026-04-09 15:24:43,040 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:24:43,040 [INFO] bicotender: ✔ BicoTender: 1 pages, 2 cards, 0 details, 0 errors
+2026-04-09 15:24:49,045 [INFO] bicotender: ━━━ Keyword 2/59: 'база IMEI' ━━━
+2026-04-09 15:24:49,046 [INFO] bicotender: ▶ BicoTender: query='база IMEI' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:24:49,046 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B1%D0%B0%D0%B7%D0%B0+IMEI&no_search_by_positions=0&keywordsStrict=1&nokeywords=&no_exclude_by_po
+2026-04-09 15:24:51,374 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:24:51,374 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:24:51,374 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:24:57,379 [INFO] bicotender: ━━━ Keyword 3/59: 'создание системы CEIR' ━━━
+2026-04-09 15:24:57,380 [INFO] bicotender: ▶ BicoTender: query='создание системы CEIR' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:24:57,381 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%81%D0%BE%D0%B7%D0%B4%D0%B0%D0%BD%D0%B8%D0%B5+%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D1%8B+CEIR&no_
+2026-04-09 15:24:59,751 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:24:59,752 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:24:59,752 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:25:05,757 [INFO] bicotender: ━━━ Keyword 4/59: 'модернизация EIR' ━━━
+2026-04-09 15:25:05,757 [INFO] bicotender: ▶ BicoTender: query='модернизация EIR' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:25:05,757 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BC%D0%BE%D0%B4%D0%B5%D1%80%D0%BD%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F+EIR&no_search_by_positions=
+2026-04-09 15:25:08,094 [INFO] bicotender: Parsed 1 tenders from listing page
+2026-04-09 15:25:08,094 [INFO] bicotender:   Page 1: 1 tenders
+2026-04-09 15:25:08,121 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:25:08,121 [INFO] bicotender: ✔ BicoTender: 1 pages, 1 cards, 0 details, 0 errors
+2026-04-09 15:25:14,124 [INFO] bicotender: ━━━ Keyword 5/59: 'система контроля IMEI' ━━━
+2026-04-09 15:25:14,125 [INFO] bicotender: ▶ BicoTender: query='система контроля IMEI' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:25:14,126 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0+%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8F+IMEI&no_
+2026-04-09 15:25:16,434 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:25:16,434 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:25:16,434 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:25:22,439 [INFO] bicotender: ━━━ Keyword 6/59: 'регистрация абонентских устройств' ━━━
+2026-04-09 15:25:22,442 [INFO] bicotender: ▶ BicoTender: query='регистрация абонентских устройств' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:25:22,442 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%80%D0%B5%D0%B3%D0%B8%D1%81%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F+%D0%B0%D0%B1%D0%BE%D0%BD%D0%B5%D0
+2026-04-09 15:25:25,001 [INFO] bicotender: Parsed 9 tenders from listing page
+2026-04-09 15:25:25,002 [INFO] bicotender:   Page 1: 9 tenders
+2026-04-09 15:25:25,028 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:25:25,028 [INFO] bicotender: ✔ BicoTender: 1 pages, 9 cards, 0 details, 0 errors
+2026-04-09 15:25:31,033 [INFO] bicotender: ━━━ Keyword 7/59: 'борьба с серым импортом устройств' ━━━
+2026-04-09 15:25:31,033 [INFO] bicotender: ▶ BicoTender: query='борьба с серым импортом устройств' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:25:31,034 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B1%D0%BE%D1%80%D1%8C%D0%B1%D0%B0+%D1%81+%D1%81%D0%B5%D1%80%D1%8B%D0%BC+%D0%B8%D0%BC%D0%BF%D0%BE%
+2026-04-09 15:25:33,351 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:25:33,351 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:25:33,351 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:25:39,353 [INFO] bicotender: ━━━ Keyword 8/59: 'поставка платформы контроля абонентского оборудования' ━━━
+2026-04-09 15:25:39,353 [INFO] bicotender: ▶ BicoTender: query='поставка платформы контроля абонентского оборудования' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:25:39,354 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D0%BE%D1%81%D1%82%D0%B0%D0%B2%D0%BA%D0%B0+%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D1
+2026-04-09 15:25:41,796 [INFO] bicotender: Parsed 1 tenders from listing page
+2026-04-09 15:25:41,797 [INFO] bicotender:   Page 1: 1 tenders
+2026-04-09 15:25:41,817 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:25:41,817 [INFO] bicotender: ✔ BicoTender: 1 pages, 1 cards, 0 details, 0 errors
+2026-04-09 15:25:47,822 [INFO] bicotender: ━━━ Keyword 9/59: 'контроль мобильных устройств' ━━━
+2026-04-09 15:25:47,822 [INFO] bicotender: ▶ BicoTender: query='контроль мобильных устройств' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:25:47,823 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C+%D0%BC%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D1
+2026-04-09 15:25:57,806 [INFO] bicotender: Parsed 20 tenders from listing page
+2026-04-09 15:25:57,807 [INFO] bicotender:   Page 1: 20 tenders
+2026-04-09 15:25:57,842 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:25:57,842 [INFO] bicotender: ✔ BicoTender: 1 pages, 20 cards, 0 details, 0 errors
+2026-04-09 15:26:03,847 [INFO] bicotender: ━━━ Keyword 10/59: 'блокировка нелегальных телефонов' ━━━
+2026-04-09 15:26:03,847 [INFO] bicotender: ▶ BicoTender: query='блокировка нелегальных телефонов' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:26:03,847 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0+%D0%BD%D0%B5%D0%BB%D0%B5%D0%B3%D0%B0%D0
+2026-04-09 15:26:06,098 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:26:06,099 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:26:06,099 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:26:12,100 [INFO] bicotender: ━━━ Keyword 11/59: 'блокировка украденных телефонов' ━━━
+2026-04-09 15:26:12,101 [INFO] bicotender: ▶ BicoTender: query='блокировка украденных телефонов' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:26:12,102 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0+%D1%83%D0%BA%D1%80%D0%B0%D0%B4%D0%B5%D0
+2026-04-09 15:26:14,377 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:26:14,377 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:26:14,377 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:26:20,379 [INFO] bicotender: ━━━ Keyword 12/59: 'учет мобильных устройств' ━━━
+2026-04-09 15:26:20,380 [INFO] bicotender: ▶ BicoTender: query='учет мобильных устройств' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:26:20,381 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%83%D1%87%D0%B5%D1%82+%D0%BC%D0%BE%D0%B1%D0%B8%D0%BB%D1%8C%D0%BD%D1%8B%D1%85+%D1%83%D1%81%D1%82%D
+2026-04-09 15:26:28,980 [INFO] bicotender: Parsed 20 tenders from listing page
+2026-04-09 15:26:28,981 [INFO] bicotender:   Page 1: 20 tenders
+2026-04-09 15:26:29,010 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:26:29,011 [INFO] bicotender: ✔ BicoTender: 1 pages, 20 cards, 0 details, 0 errors
+2026-04-09 15:26:35,014 [INFO] bicotender: ━━━ Keyword 13/59: 'аутентификация IMEI' ━━━
+2026-04-09 15:26:35,015 [INFO] bicotender: ▶ BicoTender: query='аутентификация IMEI' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:26:35,015 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B0%D1%83%D1%82%D0%B5%D0%BD%D1%82%D0%B8%D1%84%D0%B8%D0%BA%D0%B0%D1%86%D0%B8%D1%8F+IMEI&no_search_
+2026-04-09 15:26:37,298 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:26:37,299 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:26:37,300 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:26:43,304 [INFO] bicotender: ━━━ Keyword 14/59: 'национальный реестр идентификаторов' ━━━
+2026-04-09 15:26:43,306 [INFO] bicotender: ▶ BicoTender: query='национальный реестр идентификаторов' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:26:43,306 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B9+%D1%80%D0%B5%D0%B5%D1%81%D1
+2026-04-09 15:26:45,686 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:26:45,686 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:26:45,686 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:26:51,691 [INFO] bicotender: ━━━ Keyword 15/59: 'национальная система учета устройств' ━━━
+2026-04-09 15:26:51,691 [INFO] bicotender: ▶ BicoTender: query='национальная система учета устройств' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:26:51,692 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BD%D0%B0%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F+%D1%81%D0%B8%D1%81%D1%82%D0
+2026-04-09 15:26:54,702 [INFO] bicotender: Parsed 15 tenders from listing page
+2026-04-09 15:26:54,702 [INFO] bicotender:   Page 1: 15 tenders
+2026-04-09 15:26:54,735 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:26:54,735 [INFO] bicotender: ✔ BicoTender: 1 pages, 15 cards, 0 details, 0 errors
+2026-04-09 15:27:00,740 [INFO] bicotender: ━━━ Keyword 16/59: 'контроль импорта мобильных телефонов' ━━━
+2026-04-09 15:27:00,741 [INFO] bicotender: ▶ BicoTender: query='контроль импорта мобильных телефонов' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:27:00,741 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C+%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82%D0%B0+%D0%BC%D
+2026-04-09 15:27:03,038 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:27:03,038 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:27:03,038 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:27:09,044 [INFO] bicotender: ━━━ Keyword 17/59: 'контроль импорта устройств' ━━━
+2026-04-09 15:27:09,044 [INFO] bicotender: ▶ BicoTender: query='контроль импорта устройств' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:27:09,044 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C+%D0%B8%D0%BC%D0%BF%D0%BE%D1%80%D1%82%D0%B0+%D1%83%D
+2026-04-09 15:27:12,555 [INFO] bicotender: Parsed 14 tenders from listing page
+2026-04-09 15:27:12,555 [INFO] bicotender:   Page 1: 14 tenders
+2026-04-09 15:27:12,587 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:27:12,587 [INFO] bicotender: ✔ BicoTender: 1 pages, 14 cards, 0 details, 0 errors
+2026-04-09 15:27:18,592 [INFO] bicotender: ━━━ Keyword 18/59: 'борьба с контрафактом устройств' ━━━
+2026-04-09 15:27:18,592 [INFO] bicotender: ▶ BicoTender: query='борьба с контрафактом устройств' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:27:18,593 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B1%D0%BE%D1%80%D1%8C%D0%B1%D0%B0+%D1%81+%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D1%84%D0%B0%D0%BA%D
+2026-04-09 15:27:20,869 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:27:20,869 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:27:20,869 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:27:26,874 [INFO] bicotender: ━━━ Keyword 19/59: 'управление ценностью клиента' ━━━
+2026-04-09 15:27:26,875 [INFO] bicotender: ▶ BicoTender: query='управление ценностью клиента' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:27:26,875 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5+%D1%86%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1
+2026-04-09 15:27:29,236 [INFO] bicotender: Parsed 6 tenders from listing page
+2026-04-09 15:27:29,236 [INFO] bicotender:   Page 1: 6 tenders
+2026-04-09 15:27:29,264 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:27:29,264 [INFO] bicotender: ✔ BicoTender: 1 pages, 6 cards, 0 details, 0 errors
+2026-04-09 15:27:35,269 [INFO] bicotender: ━━━ Keyword 20/59: 'управление ценностью абонентов' ━━━
+2026-04-09 15:27:35,269 [INFO] bicotender: ▶ BicoTender: query='управление ценностью абонентов' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:27:35,269 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5+%D1%86%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1
+2026-04-09 15:27:37,543 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:27:37,543 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:27:37,543 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:27:43,547 [INFO] bicotender: ━━━ Keyword 21/59: 'маркетинговая платформа' ━━━
+2026-04-09 15:27:43,548 [INFO] bicotender: ▶ BicoTender: query='маркетинговая платформа' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:27:43,548 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F+%D0%BF%D0%BB%D0%B0%D1
+2026-04-09 15:27:46,331 [INFO] bicotender: Parsed 13 tenders from listing page
+2026-04-09 15:27:46,331 [INFO] bicotender:   Page 1: 13 tenders
+2026-04-09 15:27:46,362 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:27:46,362 [INFO] bicotender: ✔ BicoTender: 1 pages, 13 cards, 0 details, 0 errors
+2026-04-09 15:27:52,367 [INFO] bicotender: ━━━ Keyword 22/59: 'сегментация клиентов' ━━━
+2026-04-09 15:27:52,369 [INFO] bicotender: ▶ BicoTender: query='сегментация клиентов' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:27:52,370 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%81%D0%B5%D0%B3%D0%BC%D0%B5%D0%BD%D1%82%D0%B0%D1%86%D0%B8%D1%8F+%D0%BA%D0%BB%D0%B8%D0%B5%D0%BD%D1
+2026-04-09 15:27:54,653 [INFO] bicotender: Parsed 1 tenders from listing page
+2026-04-09 15:27:54,653 [INFO] bicotender:   Page 1: 1 tenders
+2026-04-09 15:27:54,678 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:27:54,679 [INFO] bicotender: ✔ BicoTender: 1 pages, 1 cards, 0 details, 0 errors
+2026-04-09 15:28:00,679 [INFO] bicotender: ━━━ Keyword 23/59: 'персонализация предложений' ━━━
+2026-04-09 15:28:00,680 [INFO] bicotender: ▶ BicoTender: query='персонализация предложений' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:00,680 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F+%D0%BF%D1%80%D0
+2026-04-09 15:28:02,999 [INFO] bicotender: Parsed 3 tenders from listing page
+2026-04-09 15:28:02,999 [INFO] bicotender:   Page 1: 3 tenders
+2026-04-09 15:28:03,026 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:28:03,026 [INFO] bicotender: ✔ BicoTender: 1 pages, 3 cards, 0 details, 0 errors
+2026-04-09 15:28:09,031 [INFO] bicotender: ━━━ Keyword 24/59: 'триггерные кампании' ━━━
+2026-04-09 15:28:09,032 [INFO] bicotender: ▶ BicoTender: query='триггерные кампании' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:09,032 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%82%D1%80%D0%B8%D0%B3%D0%B3%D0%B5%D1%80%D0%BD%D1%8B%D0%B5+%D0%BA%D0%B0%D0%BC%D0%BF%D0%B0%D0%BD%D0
+2026-04-09 15:28:11,344 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:28:11,344 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:28:11,344 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:28:17,348 [INFO] bicotender: ━━━ Keyword 25/59: 'CVM-платформа' ━━━
+2026-04-09 15:28:17,349 [INFO] bicotender: ▶ BicoTender: query='CVM-платформа' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:17,350 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=CVM-%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0&no_search_by_positions=0&keywordsStrict=1
+2026-04-09 15:28:19,666 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:28:19,666 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:28:19,666 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:28:25,671 [INFO] bicotender: ━━━ Keyword 26/59: 'маркетинговая автоматизация' ━━━
+2026-04-09 15:28:25,672 [INFO] bicotender: ▶ BicoTender: query='маркетинговая автоматизация' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:25,672 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0%B8%D0%BD%D0%B3%D0%BE%D0%B2%D0%B0%D1%8F+%D0%B0%D0%B2%D1%82%D0
+2026-04-09 15:28:28,347 [INFO] bicotender: Parsed 5 tenders from listing page
+2026-04-09 15:28:28,347 [INFO] bicotender:   Page 1: 5 tenders
+2026-04-09 15:28:28,367 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:28:28,368 [INFO] bicotender: ✔ BicoTender: 1 pages, 5 cards, 0 details, 0 errors
+2026-04-09 15:28:34,373 [INFO] bicotender: ━━━ Keyword 27/59: 'управление маркетинговыми кампаниями' ━━━
+2026-04-09 15:28:34,374 [INFO] bicotender: ▶ BicoTender: query='управление маркетинговыми кампаниями' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:34,374 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5+%D0%BC%D0%B0%D1%80%D0%BA%D0%B5%D1%82%D0
+2026-04-09 15:28:36,648 [INFO] bicotender: Parsed 1 tenders from listing page
+2026-04-09 15:28:36,649 [INFO] bicotender:   Page 1: 1 tenders
+2026-04-09 15:28:36,674 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:28:36,674 [INFO] bicotender: ✔ BicoTender: 1 pages, 1 cards, 0 details, 0 errors
+2026-04-09 15:28:42,679 [INFO] bicotender: ━━━ Keyword 28/59: 'омниканальные коммуникации' ━━━
+2026-04-09 15:28:42,679 [INFO] bicotender: ▶ BicoTender: query='омниканальные коммуникации' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:42,680 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BE%D0%BC%D0%BD%D0%B8%D0%BA%D0%B0%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5+%D0%BA%D0%BE%D0%BC%D0
+2026-04-09 15:28:44,907 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:28:44,907 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:28:44,907 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:28:50,910 [INFO] bicotender: ━━━ Keyword 29/59: 'предиктивная аналитика оттока' ━━━
+2026-04-09 15:28:50,912 [INFO] bicotender: ▶ BicoTender: query='предиктивная аналитика оттока' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:50,912 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D1%80%D0%B5%D0%B4%D0%B8%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%B0%D1%8F+%D0%B0%D0%BD%D0%B0%D0%BB%D0
+2026-04-09 15:28:53,236 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:28:53,237 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:28:53,237 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:28:59,241 [INFO] bicotender: ━━━ Keyword 30/59: 'триггерные рассылки' ━━━
+2026-04-09 15:28:59,242 [INFO] bicotender: ▶ BicoTender: query='триггерные рассылки' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:28:59,242 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%82%D1%80%D0%B8%D0%B3%D0%B3%D0%B5%D1%80%D0%BD%D1%8B%D0%B5+%D1%80%D0%B0%D1%81%D1%81%D1%8B%D0%BB%D0
+2026-04-09 15:29:01,588 [INFO] bicotender: Parsed 1 tenders from listing page
+2026-04-09 15:29:01,589 [INFO] bicotender:   Page 1: 1 tenders
+2026-04-09 15:29:01,613 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:29:01,614 [INFO] bicotender: ✔ BicoTender: 1 pages, 1 cards, 0 details, 0 errors
+2026-04-09 15:29:07,619 [INFO] bicotender: ━━━ Keyword 31/59: 'внедрение платформы целевого маркетинга' ━━━
+2026-04-09 15:29:07,619 [INFO] bicotender: ▶ BicoTender: query='внедрение платформы целевого маркетинга' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:29:07,619 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B2%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D0%B5+%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0
+2026-04-09 15:29:09,895 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:29:09,896 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:29:09,897 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:29:15,897 [INFO] bicotender: ━━━ Keyword 32/59: 'автоматизация взаимодействия с абонентами' ━━━
+2026-04-09 15:29:15,897 [INFO] bicotender: ▶ BicoTender: query='автоматизация взаимодействия с абонентами' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:29:15,897 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B0%D0%B2%D1%82%D0%BE%D0%BC%D0%B0%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F+%D0%B2%D0%B7%D0%B0%D0
+2026-04-09 15:29:18,185 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:29:18,186 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:29:18,186 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:29:24,191 [INFO] bicotender: ━━━ Keyword 33/59: 'персонализация клиентского опыта' ━━━
+2026-04-09 15:29:24,193 [INFO] bicotender: ▶ BicoTender: query='персонализация клиентского опыта' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:29:24,194 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D0%B5%D1%80%D1%81%D0%BE%D0%BD%D0%B0%D0%BB%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F+%D0%BA%D0%BB%D0
+2026-04-09 15:29:26,545 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:29:26,545 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:29:26,545 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:29:32,549 [INFO] bicotender: ━━━ Keyword 34/59: 'платформа для управления лояльностью' ━━━
+2026-04-09 15:29:32,550 [INFO] bicotender: ▶ BicoTender: query='платформа для управления лояльностью' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:29:32,550 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0+%D0%B4%D0%BB%D1%8F+%D1%83%D0%BF%D1%80%D0%B0%D
+2026-04-09 15:29:34,975 [INFO] bicotender: Parsed 4 tenders from listing page
+2026-04-09 15:29:34,976 [INFO] bicotender:   Page 1: 4 tenders
+2026-04-09 15:29:35,003 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:29:35,003 [INFO] bicotender: ✔ BicoTender: 1 pages, 4 cards, 0 details, 0 errors
+2026-04-09 15:29:41,005 [INFO] bicotender: ━━━ Keyword 35/59: 'платформа для целевого маркетинга' ━━━
+2026-04-09 15:29:41,006 [INFO] bicotender: ▶ BicoTender: query='платформа для целевого маркетинга' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:29:41,006 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D0%BB%D0%B0%D1%82%D1%84%D0%BE%D1%80%D0%BC%D0%B0+%D0%B4%D0%BB%D1%8F+%D1%86%D0%B5%D0%BB%D0%B5%D
+2026-04-09 15:29:43,364 [INFO] bicotender: Parsed 1 tenders from listing page
+2026-04-09 15:29:43,365 [INFO] bicotender:   Page 1: 1 tenders
+2026-04-09 15:29:43,388 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:29:43,388 [INFO] bicotender: ✔ BicoTender: 1 pages, 1 cards, 0 details, 0 errors
+2026-04-09 15:29:49,393 [INFO] bicotender: ━━━ Keyword 36/59: 'A2P защита' ━━━
+2026-04-09 15:29:49,394 [INFO] bicotender: ▶ BicoTender: query='A2P защита' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:29:49,394 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=A2P+%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0&no_search_by_positions=0&keywordsStrict=1&nokeywords=&no_ex
+2026-04-09 15:29:51,712 [INFO] bicotender: Parsed 1 tenders from listing page
+2026-04-09 15:29:51,713 [INFO] bicotender:   Page 1: 1 tenders
+2026-04-09 15:29:51,737 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:29:51,737 [INFO] bicotender: ✔ BicoTender: 1 pages, 1 cards, 0 details, 0 errors
+2026-04-09 15:29:57,743 [INFO] bicotender: ━━━ Keyword 37/59: 'антифрод SMS' ━━━
+2026-04-09 15:29:57,743 [INFO] bicotender: ▶ BicoTender: query='антифрод SMS' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:29:57,744 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B0%D0%BD%D1%82%D0%B8%D1%84%D1%80%D0%BE%D0%B4+SMS&no_search_by_positions=0&keywordsStrict=1&nokey
+2026-04-09 15:29:59,991 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:29:59,991 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:29:59,991 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:30:05,994 [INFO] bicotender: ━━━ Keyword 38/59: 'фильтрация SMS' ━━━
+2026-04-09 15:30:05,994 [INFO] bicotender: ▶ BicoTender: query='фильтрация SMS' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:30:05,995 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F+SMS&no_search_by_positions=0&keywordsSt
+2026-04-09 15:30:09,206 [INFO] bicotender: Parsed 19 tenders from listing page
+2026-04-09 15:30:09,206 [INFO] bicotender:   Page 1: 19 tenders
+2026-04-09 15:30:09,240 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:30:09,240 [INFO] bicotender: ✔ BicoTender: 1 pages, 19 cards, 0 details, 0 errors
+2026-04-09 15:30:15,245 [INFO] bicotender: ━━━ Keyword 39/59: 'защита SMS трафика' ━━━
+2026-04-09 15:30:15,245 [INFO] bicotender: ▶ BicoTender: query='защита SMS трафика' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:30:15,246 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0+SMS+%D1%82%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D0%B0&no_search_by_pos
+2026-04-09 15:30:17,504 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:30:17,504 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:30:17,504 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:30:23,508 [INFO] bicotender: ━━━ Keyword 40/59: 'защита сигнального трафика' ━━━
+2026-04-09 15:30:23,509 [INFO] bicotender: ▶ BicoTender: query='защита сигнального трафика' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:30:23,509 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0+%D1%81%D0%B8%D0%B3%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B3%D0
+2026-04-09 15:30:25,871 [INFO] bicotender: Parsed 3 tenders from listing page
+2026-04-09 15:30:25,871 [INFO] bicotender:   Page 1: 3 tenders
+2026-04-09 15:30:25,897 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:30:25,897 [INFO] bicotender: ✔ BicoTender: 1 pages, 3 cards, 0 details, 0 errors
+2026-04-09 15:30:31,903 [INFO] bicotender: ━━━ Keyword 41/59: 'противодействие SMS-фроду' ━━━
+2026-04-09 15:30:31,903 [INFO] bicotender: ▶ BicoTender: query='противодействие SMS-фроду' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:30:31,903 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D1%80%D0%BE%D1%82%D0%B8%D0%B2%D0%BE%D0%B4%D0%B5%D0%B9%D1%81%D1%82%D0%B2%D0%B8%D0%B5+SMS-%D1%8
+2026-04-09 15:30:34,201 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:30:34,202 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:30:34,202 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:30:40,203 [INFO] bicotender: ━━━ Keyword 42/59: 'SMS антифрод-система' ━━━
+2026-04-09 15:30:40,204 [INFO] bicotender: ▶ BicoTender: query='SMS антифрод-система' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:30:40,204 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=SMS+%D0%B0%D0%BD%D1%82%D0%B8%D1%84%D1%80%D0%BE%D0%B4-%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0&no_s
+2026-04-09 15:30:42,469 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:30:42,469 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:30:42,469 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:30:48,474 [INFO] bicotender: ━━━ Keyword 43/59: 'фильтрация SMS трафика' ━━━
+2026-04-09 15:30:48,475 [INFO] bicotender: ▶ BicoTender: query='фильтрация SMS трафика' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:30:48,476 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%84%D0%B8%D0%BB%D1%8C%D1%82%D1%80%D0%B0%D1%86%D0%B8%D1%8F+SMS+%D1%82%D1%80%D0%B0%D1%84%D0%B8%D0%B
+2026-04-09 15:30:50,778 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:30:50,778 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:30:50,779 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:30:56,784 [INFO] bicotender: ━━━ Keyword 44/59: 'монетизация A2P трафика' ━━━
+2026-04-09 15:30:56,784 [INFO] bicotender: ▶ BicoTender: query='монетизация A2P трафика' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:30:56,785 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BC%D0%BE%D0%BD%D0%B5%D1%82%D0%B8%D0%B7%D0%B0%D1%86%D0%B8%D1%8F+A2P+%D1%82%D1%80%D0%B0%D1%84%D0%B
+2026-04-09 15:30:59,024 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:30:59,025 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:30:59,025 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:31:05,027 [INFO] bicotender: ━━━ Keyword 45/59: 'блокировка флеш-звонков' ━━━
+2026-04-09 15:31:05,028 [INFO] bicotender: ▶ BicoTender: query='блокировка флеш-звонков' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:31:05,028 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B1%D0%BB%D0%BE%D0%BA%D0%B8%D1%80%D0%BE%D0%B2%D0%BA%D0%B0+%D1%84%D0%BB%D0%B5%D1%88-%D0%B7%D0%B2%D
+2026-04-09 15:31:07,331 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:31:07,331 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:31:07,332 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:31:13,337 [INFO] bicotender: ━━━ Keyword 46/59: 'защита от подмены номера' ━━━
+2026-04-09 15:31:13,338 [INFO] bicotender: ▶ BicoTender: query='защита от подмены номера' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:31:13,339 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0+%D0%BE%D1%82+%D0%BF%D0%BE%D0%B4%D0%BC%D0%B5%D0%BD%D1%8B+%D0%BD%
+2026-04-09 15:31:15,693 [INFO] bicotender: Parsed 2 tenders from listing page
+2026-04-09 15:31:15,693 [INFO] bicotender:   Page 1: 2 tenders
+2026-04-09 15:31:15,719 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:31:15,719 [INFO] bicotender: ✔ BicoTender: 1 pages, 2 cards, 0 details, 0 errors
+2026-04-09 15:31:21,724 [INFO] bicotender: ━━━ Keyword 47/59: 'контроль SMS трафика в реальном времени' ━━━
+2026-04-09 15:31:21,725 [INFO] bicotender: ▶ BicoTender: query='контроль SMS трафика в реальном времени' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:31:21,726 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BA%D0%BE%D0%BD%D1%82%D1%80%D0%BE%D0%BB%D1%8C+SMS+%D1%82%D1%80%D0%B0%D1%84%D0%B8%D0%BA%D0%B0+%D0%
+2026-04-09 15:31:23,991 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:31:23,991 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:31:23,991 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:31:29,992 [INFO] bicotender: ━━━ Keyword 48/59: 'система защиты от несанкционированных рассылок' ━━━
+2026-04-09 15:31:29,992 [INFO] bicotender: ▶ BicoTender: query='система защиты от несанкционированных рассылок' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:31:29,993 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0+%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D1%8B+%D0%BE%D1%82+%D0%BD%
+2026-04-09 15:31:32,327 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:31:32,327 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:31:32,327 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:31:38,331 [INFO] bicotender: ━━━ Keyword 49/59: 'мониторинг и управление SMS/Voice трафиком' ━━━
+2026-04-09 15:31:38,331 [INFO] bicotender: ▶ BicoTender: query='мониторинг и управление SMS/Voice трафиком' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:31:38,332 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%BD%D0%B3+%D0%B8+%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D
+2026-04-09 15:31:40,651 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:31:40,652 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:31:40,652 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:31:46,655 [INFO] bicotender: ━━━ Keyword 50/59: 'защита сети от SMS и Voice фрода' ━━━
+2026-04-09 15:31:46,656 [INFO] bicotender: ▶ BicoTender: query='защита сети от SMS и Voice фрода' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:31:46,656 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B7%D0%B0%D1%89%D0%B8%D1%82%D0%B0+%D1%81%D0%B5%D1%82%D0%B8+%D0%BE%D1%82+SMS+%D0%B8+Voice+%D1%84%D
+2026-04-09 15:31:48,976 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:31:48,976 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:31:48,976 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:31:54,980 [INFO] bicotender: ━━━ Keyword 51/59: 'инфраструктура для больших данных' ━━━
+2026-04-09 15:31:54,981 [INFO] bicotender: ▶ BicoTender: query='инфраструктура для больших данных' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:31:54,981 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B8%D0%BD%D1%84%D1%80%D0%B0%D1%81%D1%82%D1%80%D1%83%D0%BA%D1%82%D1%83%D1%80%D0%B0+%D0%B4%D0%BB%D1
+2026-04-09 15:31:58,203 [INFO] bicotender: Parsed 20 tenders from listing page
+2026-04-09 15:31:58,203 [INFO] bicotender:   Page 1: 20 tenders
+2026-04-09 15:31:58,239 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:31:58,239 [INFO] bicotender: ✔ BicoTender: 1 pages, 20 cards, 0 details, 0 errors
+2026-04-09 15:32:04,244 [INFO] bicotender: ━━━ Keyword 52/59: 'искусственный интеллект в телекоме' ━━━
+2026-04-09 15:32:04,245 [INFO] bicotender: ▶ BicoTender: query='искусственный интеллект в телекоме' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:32:04,245 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B8%D1%81%D0%BA%D1%83%D1%81%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B9+%D0%B8%D0%BD%D1%82%D0
+2026-04-09 15:32:06,504 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:32:06,504 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:32:06,504 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:32:12,509 [INFO] bicotender: ━━━ Keyword 53/59: 'предиктивные модели' ━━━
+2026-04-09 15:32:12,510 [INFO] bicotender: ▶ BicoTender: query='предиктивные модели' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:32:12,510 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D1%80%D0%B5%D0%B4%D0%B8%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5+%D0%BC%D0%BE%D0%B4%D0%B5%D0
+2026-04-09 15:32:14,829 [INFO] bicotender: Parsed 3 tenders from listing page
+2026-04-09 15:32:14,829 [INFO] bicotender:   Page 1: 3 tenders
+2026-04-09 15:32:14,855 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:32:14,855 [INFO] bicotender: ✔ BicoTender: 1 pages, 3 cards, 0 details, 0 errors
+2026-04-09 15:32:20,860 [INFO] bicotender: ━━━ Keyword 54/59: 'профилирование 360' ━━━
+2026-04-09 15:32:20,860 [INFO] bicotender: ▶ BicoTender: query='профилирование 360' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:32:20,860 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BF%D1%80%D0%BE%D1%84%D0%B8%D0%BB%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5+360&no_search_b
+2026-04-09 15:32:23,132 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:32:23,132 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:32:23,132 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:32:29,133 [INFO] bicotender: ━━━ Keyword 55/59: 'SQL-аналитика на больших объемах' ━━━
+2026-04-09 15:32:29,134 [INFO] bicotender: ▶ BicoTender: query='SQL-аналитика на больших объемах' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:32:29,134 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=SQL-%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D0%BA%D0%B0+%D0%BD%D0%B0+%D0%B1%D0%BE%D0%BB%D1%8C%D1%
+2026-04-09 15:32:31,440 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:32:31,440 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:32:31,440 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:32:37,445 [INFO] bicotender: ━━━ Keyword 56/59: 'кластерные вычисления' ━━━
+2026-04-09 15:32:37,445 [INFO] bicotender: ▶ BicoTender: query='кластерные вычисления' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:32:37,445 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BA%D0%BB%D0%B0%D1%81%D1%82%D0%B5%D1%80%D0%BD%D1%8B%D0%B5+%D0%B2%D1%8B%D1%87%D0%B8%D1%81%D0%BB%D0
+2026-04-09 15:32:39,768 [INFO] bicotender: Parsed 2 tenders from listing page
+2026-04-09 15:32:39,768 [INFO] bicotender:   Page 1: 2 tenders
+2026-04-09 15:32:39,794 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:32:39,794 [INFO] bicotender: ✔ BicoTender: 1 pages, 2 cards, 0 details, 0 errors
+2026-04-09 15:32:45,799 [INFO] bicotender: ━━━ Keyword 57/59: 'внедрение моделей прогнозной аналитики' ━━━
+2026-04-09 15:32:45,799 [INFO] bicotender: ▶ BicoTender: query='внедрение моделей прогнозной аналитики' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:32:45,799 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B2%D0%BD%D0%B5%D0%B4%D1%80%D0%B5%D0%BD%D0%B8%D0%B5+%D0%BC%D0%BE%D0%B4%D0%B5%D0%BB%D0%B5%D0%B9+%D
+2026-04-09 15:32:48,050 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:32:48,051 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:32:48,051 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:32:54,051 [INFO] bicotender: ━━━ Keyword 58/59: 'консалтинг в области дата сайенс' ━━━
+2026-04-09 15:32:54,052 [INFO] bicotender: ▶ BicoTender: query='консалтинг в области дата сайенс' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:32:54,052 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%BA%D0%BE%D0%BD%D1%81%D0%B0%D0%BB%D1%82%D0%B8%D0%BD%D0%B3+%D0%B2+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D
+2026-04-09 15:32:56,328 [WARNING] bicotender: No tender links found on listing page
+2026-04-09 15:32:56,328 [INFO] bicotender:   Page 1: 0 tenders — stopping
+2026-04-09 15:32:56,328 [INFO] bicotender: ✔ BicoTender: 0 pages, 0 cards, 0 details, 0 errors
+2026-04-09 15:33:02,333 [INFO] bicotender: ━━━ Keyword 59/59: 'аналитические ML-модели' ━━━
+2026-04-09 15:33:02,333 [INFO] bicotender: ▶ BicoTender: query='аналитические ML-модели' max_pages=5 details=False per_page=100 strict=True
+2026-04-09 15:33:02,334 [INFO] bicotender:   📄 Page 1: https://www.bicotender.ru/tender/search/?keywords=%D0%B0%D0%BD%D0%B0%D0%BB%D0%B8%D1%82%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5+ML-%D0%BC%D0%BE%D0%B4
+2026-04-09 15:33:05,134 [INFO] bicotender: Parsed 9 tenders from listing page
+2026-04-09 15:33:05,135 [INFO] bicotender:   Page 1: 9 tenders
+2026-04-09 15:33:05,163 [INFO] bicotender:   Last page (max=1)
+2026-04-09 15:33:05,163 [INFO] bicotender: ✔ BicoTender: 1 pages, 9 cards, 0 details, 0 errors
+2026-04-09 15:33:11,168 [INFO] bicotender: ═══ Keywords done: 168 unique tenders ═══
+2026-04-09 15:33:11,172 [INFO] collector_bico: ═══ BicoTender done ═══
+  New tenders saved  : 2
+  Verified (passed)  : 3
+  Rejected (no match): 165
+  DB total           : 159

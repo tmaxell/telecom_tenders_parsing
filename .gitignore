@@ -1,0 +1,5 @@
+.DS_Store
+src/__pycache__/
+src/sources/__pycache__/
+data/exports/
+logs/
